@@ -1,0 +1,11 @@
+Flask==3.0.0
+keras==2.15.0
+numpy
+opencv-python==4.8.1.78
+pandas==2.1.4
+Pillow==10.1.0
+pymongo==4.6.1
+tensorflow==2.15.0
+tensorflow-estimator==2.15.0
+tensorflow-io-gcs-filesystem==0.34.0
+gunicorn==21.2.0
