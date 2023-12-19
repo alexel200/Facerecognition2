@@ -71,8 +71,8 @@ def verifyUser():
 
     # Folder definition
     BASE_PATH = os.path.dirname(os.path.join(app.current_app.config['BASE_PATH'], 'src'))
-    USER_VERIFICATION_FOLDER = os.path.join(BASE_PATH, 'images', 'verification', 'JhonRueda')
-    USER_FOLDER = os.path.join(BASE_PATH, 'images', 'users', 'JhonRueda')
+    USER_VERIFICATION_FOLDER = os.path.join(BASE_PATH, 'images', 'verification', user)
+    USER_FOLDER = os.path.join(BASE_PATH, 'images', 'users', user)
     MODEL_FILES_PATH = os.path.join(BASE_PATH, 'modelFiles')
 
     # Global Parameters
