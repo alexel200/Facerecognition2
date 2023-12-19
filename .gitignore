@@ -3,7 +3,6 @@
 
 ### Flask ###
 src/instance/*
-src/modelFiles/*.h5
 !instance/.gitignore
 .webassets-cache
 .env
