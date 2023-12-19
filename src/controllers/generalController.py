@@ -12,6 +12,9 @@ from pymongo import MongoClient
 
 from src.modelFiles.layers import L1Dist
 
+client = MongoClient("mongodb+srv://alexel200:yAXXQHGA1xGIXjiJ@facedetection.ckah3mj.mongodb.net/", 27017)
+db = client.faceDetection
+
 # Load image from file and conver to 100x100px
 def preprocess(file_path):
     # Read in image from file path
@@ -123,11 +126,11 @@ def general():
     metrics = []
     mixTrainingVariables = []
 
-    results = app.current_app.db.training.distinct('variables')
+    results = db.training.distinct('variables')
     for result in results:
         baseVariables.append(result)
 
-    results = app.current_app.db.training.find()
+    results = db.training.find()
     for result in results:
         variables.append(result.get('variables'))
         trainingData.append(result.get('trainingData'))
