@@ -17,6 +17,9 @@ RUN pip install -r requirements.txt --ignore-installed embedchain
 # copy every content from the local file to the image
 COPY . /Facerecognition
 
+RUN mkdir -p src/images/users
+RUN mkdir -p src/images/verification
+
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
 
