@@ -1,4 +1,4 @@
-from src addimport create_app
+from src import create_app
 
 app = create_app()
 print("folder", app.config['BASE_PATH'])
