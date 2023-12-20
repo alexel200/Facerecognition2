@@ -13,6 +13,9 @@ from pymongo import MongoClient
 sys.path.append('../src')
 from src.modelFiles.layers import L1Dist
 
+tf.compat.v1.GPUOptions(per_process_gpu_memory_fraction=0.333)
+
+
 client = MongoClient("mongodb+srv://alexel200:yAXXQHGA1xGIXjiJ@facedetection.ckah3mj.mongodb.net/", 27017)
 db = client.faceDetection
 
