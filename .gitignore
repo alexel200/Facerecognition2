@@ -6,6 +6,7 @@ src/instance/*
 !instance/.gitignore
 .webassets-cache
 .env
+src/images/*
 
 ### Flask.Python Stack ###
 # Byte-compiled / optimized / DLL files

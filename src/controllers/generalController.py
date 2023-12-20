@@ -1,20 +1,24 @@
 import json
 import os
 import uuid
-
+import sys
 # Import other dependencies
 import cv2
 import numpy as np
 import pandas as pd
-
+from PIL import Image
 import tensorflow as tf
 from flask import request, app, Response
 from pymongo import MongoClient
-
+sys.path.append('../src')
 from src.modelFiles.layers import L1Dist
 
 client = MongoClient("mongodb+srv://alexel200:yAXXQHGA1xGIXjiJ@facedetection.ckah3mj.mongodb.net/", 27017)
 db = client.faceDetection
+
+def convert(o):
+    if isinstance(o, np.int64): return int(o)
+    raise TypeError
 
 # Load image from file and conver to 100x100px
 def preprocess(file_path):
@@ -35,6 +39,8 @@ def preprocess(file_path):
 def uploadPhoto():
     uploaded_file = request.files['image']
     user = request.form['user']
+
+
     savePhoto(uploaded_file, user)
     return "Success"
 
@@ -56,7 +62,13 @@ def savePhoto(img, user, isVerificationFolder = False):
         filename = '{}.jpg'.format(uuid.uuid1())
         fileFullPath = os.path.join(USER_FOLDER, filename)
 
+
     img.save(os.path.join(fileFullPath))
+
+    image = Image.open(fileFullPath)
+    newImage = image.resize((250, 250))
+    newImage = newImage.convert('RGB')
+    newImage.save(fileFullPath)
     #img = cv2.imread(fileFullPath)
     #data_aug(img, USER_VERIFICATION_FOLDER if isVerificationFolder else USER_FOLDER, 9 if isVerificationFolder else 18)
     if(not isVerificationFolder):
@@ -74,6 +86,9 @@ def verifyUser():
     USER_VERIFICATION_FOLDER = os.path.join(BASE_PATH, 'images', 'verification', user)
     USER_FOLDER = os.path.join(BASE_PATH, 'images', 'users', user)
     MODEL_FILES_PATH = os.path.join(BASE_PATH, 'modelFiles')
+
+    if (not os.path.exists(USER_FOLDER)):
+        return dict({'verification': 0, 'verified': False, 'detection': 0})
 
     # Global Parameters
     # Specify thresholds
@@ -106,9 +121,11 @@ def verifyUser():
     print('verified', verified, end="\n")
     print('results', results)
     print('detection', detection)
-    resp = dict({'verification': verification, 'verified': verified, 'detection': detection})
+    resp = dict({'detection': detection, 'verified': verified, 'verification': verification})
     os.remove(pathImg)
-    return json.dumps(resp, default=str)
+    #return json.dumps(resp, default=str)
+    return Response(json.dumps(resp, default=str), mimetype='application/json')
+    #return json.dumps(resp, default=str)
 
 def data_aug(img, savedPath, iterationNumber):
     for i in range(iterationNumber):
