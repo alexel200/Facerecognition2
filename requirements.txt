@@ -9,3 +9,4 @@ tensorflow==2.15.0
 tensorflow-estimator==2.15.0
 tensorflow-io-gcs-filesystem==0.34.0
 gunicorn==21.2.0
+flask-swagger-ui==4.11.1

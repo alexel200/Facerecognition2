@@ -1,0 +1,111 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "title": "Face Recognition Model",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/ai/general": {
+        "get": {
+          "description": "Returns data of the the training model",
+          "tags": ["AI controller"],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful operation"
+            }
+          }
+        }
+      },
+      "/ai/registerUser": {
+        "post": {
+          "description": "register user positive pictures",
+          "tags": ["AI controller"],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/text"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "image",
+              "type": "file",
+              "required": true,
+              "description": "The file to upload"
+            },
+            {
+              "in": "formData",
+              "name": "user",
+              "type": "string",
+              "required": true,
+              "description": "User name folder"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User granted access"
+            },
+            "400": {
+              "description": "Invalid request data"
+            }
+          }
+        }
+      },
+      "/ai/verifyUser": {
+        "post": {
+          "description": "verify user from picture",
+          "tags": ["AI controller"],
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "formData",
+              "name": "image",
+              "type": "file",
+              "required": true,
+              "description": "The file to upload"
+            },
+            {
+              "in": "formData",
+              "name": "user",
+              "type": "string",
+              "required": true,
+              "description": "User name folder"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User verification result",
+              "schema": {
+                "$ref": "#/definitions/VerificationResult"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "VerificationResult": {
+        "type": "object",
+        "properties": {
+          "detection": {
+            "type": "string"
+          },
+          "verified": {
+            "type": "string"
+          },
+          "verification": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
