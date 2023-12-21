@@ -19,7 +19,8 @@ COPY . /Facerecognition
 
 RUN mkdir -p src/images/users
 RUN mkdir -p src/images/verification
-
+RUN wget https://www.dropbox.com/scl/fi/nrs2mlr38wnxkuddcja77/siamesemodelv2.h5?rlkey=fxgo4ggo618svxloc9xkf7t9g -O src/modelFiles/siamesemodelv2.h5
+RUN wget https://www.dropbox.com/scl/fi/nrs2mlr38wnxkuddcja77/siamesemodelv2.h5?rlkey=fxgo4ggo618svxloc9xkf7t9g -O src/modelFiles/siamesemodelv3.h5
 # configure the container to run in an executed manner
 ENTRYPOINT [ "python" ]
 
